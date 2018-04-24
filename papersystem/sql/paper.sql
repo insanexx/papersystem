@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `paper` (
   `jc` varchar(50) NOT NULL DEFAULT '0',
   `zdls` varchar(50) NOT NULL DEFAULT '0',
   `jb` varchar(50) NOT NULL DEFAULT '0',
-  `nr` text NOT NULL,
+  `nr` longtext NOT NULL,
   `jxmsid` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`lwid`),
   KEY `FK_paper_teacher` (`jxmsid`),

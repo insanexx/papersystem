@@ -232,7 +232,7 @@ public class UserDaoImpl implements UserDao {
 				u.setMm(rs.getString("mm"));
 				u.setXm(rs.getString("xm"));
 				u.setXy(rs.getString("xy"));
-				u.setYhid(rs.getInt("hyid"));
+				u.setYhid(rs.getInt("yhid"));
 				u.setZy(rs.getString("zy"));
 			}
 		} catch (SQLException e) {

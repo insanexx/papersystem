@@ -63,8 +63,8 @@ public class UserServlet extends HttpServlet {
 			request.getRequestDispatcher("/jsp/message.jsp").forward(request, response);
 			return;
 		}
-		List<Paper> courseList = paperDao.getList(0, 9999);
-		request.getSession().setAttribute("courseList", courseList);
+		List<Paper> paperList = paperDao.getList(0, 9999);
+		request.getSession().setAttribute("paperList", paperList);
 		request.getRequestDispatcher("/jsp/user/index.jsp").forward(request, response);
 		return;
 	}
@@ -130,13 +130,12 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private User createUser(HttpServletRequest request) {
-		int yhid = Integer.parseInt(request.getParameter("yhid"));
 		String mm = request.getParameter("mm");;
 		String xm = request.getParameter("xm");;
 		String xy = request.getParameter("xy");;
 		String zy = request.getParameter("zy");;
 		String jc = request.getParameter("jc");;
-		User user = new User(yhid,mm,xm,xy,zy,jc);
+		User user = new User(-1,mm,xm,xy,zy,jc);
 		return user;
 	}
 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,33 +15,40 @@
 	 <form class="form-horizontal" style="padding: 30px 100px 10px;" action="${pageContext.request.contextPath }/user/UserServlet?method=register" method="POST">
       <img class="mb-4" src="${pageContext.request.contextPath }/img/2.png" alt="" width="72" height="72">
       &nbsp;&nbsp;&nbsp;
- 	  <span style="font-size:30px;" class="jumbotron-heading">私教预定系统-用户注册</span>
+ 	  <span style="font-size:30px;" class="jumbotron-heading">论文管理系统-用户注册</span>
 		<hr>
 		<div class="form-group">
-			<label for="username" class="col-sm-2 control-label">账号：</label>
+			<label for="xm" class="col-sm-2 control-label">姓名：</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="username" name="username" value="${user.username }" maxlength=15 placeholder="用户名(15字以内)" required autofocus>
+				<input type="text" class="form-control" id="xm" name="xm" value="${user.xm }" placeholder="姓名" required>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="xy" class="col-sm-2 control-label">学院：</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="xy" value="${user.xy }" name="xy" maxlength=50 placeholder="学院" required>
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="name" class="col-sm-2 control-label">姓名：</label>
+			<label for="zy" class="col-sm-2 control-label">专业：</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="name" name="name" value="${user.name }" maxlength=15 placeholder="用户名(15字以内)" required autofocus>
+				<input type="text" class="form-control" id="zy" value="${user.zy }" name="zy" maxlength=50 placeholder="专业" required>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="jc" class="col-sm-2 control-label">届次：</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="jc" value="${user.jc }" name="jc" maxlength=50 placeholder="届次" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="phone" class="col-sm-2 control-label">手机号码：</label>
+			<label for="mm" class="col-sm-2 control-label">密码：</label>
 			<div class="col-sm-4">
-				<input type="number" class="form-control" id="phone" value="${user.phone }" name="phone" maxlength=20 placeholder="手机号" required autofocus>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="password" class="col-sm-2 control-label">密码：</label>
-			<div class="col-sm-4">
-				<input type="password" class="form-control" id="password" name="password" placeholder="密码" required autofocus>
+				<input type="password" class="form-control" id="mm" name="mm" placeholder="密码" required>
 			</div>
 		</div>
 		

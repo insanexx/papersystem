@@ -1,6 +1,16 @@
+<%@page import="com.sus.papersystem.dao.impl.PaperDaoImpl"%>
+<%@page import="com.sus.papersystem.beans.Paper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core_1_1" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% 
+String paperid_str = request.getParameter("paperid");
+if(paperid_str!=null){
+	Paper paper = new PaperDaoImpl().getById(Integer.parseInt(paperid_str));
+	pageContext.setAttribute("paperid", paperid_str);
+	pageContext.setAttribute("paper", paper);
+}
+%>
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,7 +21,10 @@
     <script charset="utf-8" src="${pageContext.request.contextPath }/kindeditor-4.1.11-en/kindeditor/kindeditor-all-min.js"></script>
     <script charset="utf-8" src="${pageContext.request.contextPath }/kindeditor-4.1.11-en/kindeditor/lang/zh-CN.js"></script>
     <script charset="utf-8" src="${pageContext.request.contextPath }/kindeditor-4.1.11-en/kindeditor/plugins/code/prettify.js"></script>
-    <title>首页</title>
+    <title>
+    <c:if test="${paperid!=null }">编辑</c:if>
+    <c:if test="${paperid==null }">添加</c:if>
+    </title>
 
     <link href="${pageContext.request.contextPath }/bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath }/css/jumbotron.css" rel="stylesheet">
@@ -24,11 +37,6 @@
 	   		padding-bottom: 2px;
 	    }
     </style>
-    <script type="text/javascript">
-    	function sure(){
-    		return confirm("确定删除吗？");
-    	}
-    </script>
   </head>
 
   <body class="bg-light">
@@ -134,21 +142,6 @@
 			$(".ke-container").css("width","auto");
 		});
        	var params = {lwtm:"论文题目？",nr:"内容？"};
-    	//var control = $("#file-0");
-    	var conf = {
-    	        //'allowedFileExtensions' : [],
-    	        //'maxFileSize': 1000,
-    	        //'maxFilesNum': 3,
-    	        maxFileSize: 10*1024,//单位为kb，如果为0表示不限制文件大小
-    	       	showUpload: true, //<%--是否显示上传按钮(需要置为true，在css修改不可见，这样才能执行上面的提交：$(".fileinput-upload-button").click();)--%>
-    	        showPreview: true,//是否预览
-    	        uploadAsync: false,
-    	        language: 'zh', //设置语言
-    	        uploadExtraData:function(){
-    	        	return params;
-    	        },
-    	        uploadUrl: "${pageContext.request.contextPath }/teacher/TeacherServlet?method=addpaper",
-    	};
 		
     	function go(){
     		editor1.sync();
@@ -176,8 +169,10 @@
 			params.jc = $("#jc").val();
 			params.zdls = $("#zdls").val();
 			params.jb = $("#jb").val();
+			params.lwid = "${paperid!=null?paperid:''}";
 			
-			params.method="addpaper";
+			params.method="editpaper";
+			params.method="${paperid==null?'addpaper':'editpaper'}";
 			console.log("before send ajax");
 			$.ajax({
 	    		type:"POST",
@@ -197,6 +192,7 @@
 					}else{
 						alert(data.msg);
 					}
+					window.close();
 				},
 	            complete: function(XMLHttpRequest, textStatus){
 	            },

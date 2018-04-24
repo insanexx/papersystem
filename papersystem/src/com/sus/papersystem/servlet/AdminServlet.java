@@ -65,9 +65,26 @@ public class AdminServlet extends HttpServlet {
 		case "addteacher":
 			addteacher(request,response);
 			break;
+		case "viewpaper":
+			viewpaper(request,response);
+			break;
 		default:
 			break;
 		}
+	}
+	
+	private void viewpaper(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Admin admin = (Admin) request.getSession().getAttribute("admin");
+		if(admin==null) {
+			request.setAttribute("message", "你还没有登录");
+			request.getRequestDispatcher("/jsp/message.jsp").forward(request, response);
+			return;
+		}
+		int lwid = Integer.parseInt(request.getParameter("lwid"));
+		Paper paper = paperDao.getById(lwid);
+		request.setAttribute("paper", paper);
+		request.getRequestDispatcher("/jsp/teacher/viewpaper.jsp").forward(request, response);
+		return;
 	}
 	
 	private void addteacher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

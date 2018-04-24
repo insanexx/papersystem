@@ -1,6 +1,7 @@
 package com.sus.papersystem.servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -52,6 +53,9 @@ public class TeacherServlet extends HttpServlet {
 		case "addpaper":
 			addpaper(request,response);
 			break;
+		case "editpaper":
+			editpaper(request,response);
+			break;
 		case "deletepaper":
 			deletepaper(request,response);
 			break;
@@ -61,6 +65,33 @@ public class TeacherServlet extends HttpServlet {
 		default:
 			break;
 		}
+	}
+
+	private void editpaper(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		if(teacher==null) {
+			response.getOutputStream().write("{\"ok\":\"false\",\"msg\":\"你还没有登录\"}".getBytes(response.getCharacterEncoding()));
+			return;
+		}
+		int lwid = -1;
+		if(request.getParameter("lwid")!=null&&!request.getParameter("lwid").equals("")) {
+			lwid = Integer.parseInt(request.getParameter("lwid"));
+		}
+		String nr = request.getParameter("nr");
+		String lwtm = request.getParameter("lwtm");
+		String gjc = request.getParameter("gjc");
+		String zhy = request.getParameter("zhy");
+		String xm = request.getParameter("xm");
+		String xy = request.getParameter("xy");
+		String zy = request.getParameter("zy");
+		String jc = request.getParameter("jc");
+		String zdls = request.getParameter("zdls");
+		String jb = request.getParameter("jb");
+		int jxmsid = teacher.getJxmsid();
+		Paper paper = new Paper(lwid,lwtm,gjc,zhy,xm,xy,zy,jc,zdls,jb,nr,jxmsid);
+		paperDao.update(paper);
+		response.getOutputStream().write("{\"ok\":\"true\",\"msg\":\"修改成功！\"}".getBytes(response.getCharacterEncoding()));
+		return;
 	}
 
 	private void viewpaper(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -27,7 +27,7 @@
   
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">私人健身教练预定管理系统(${sessionScope.user.name })</a>
+      <a class="navbar-brand" href="#">论文管理系统(${sessionScope.user.xm })</a>
       
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -45,30 +45,47 @@
 		  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
 	        <img class="mr-3" src="${pageContext.request.contextPath }/img/2.png" alt="" width="48" height="48">
 	        <div class="lh-100">
-	          <h6 class="mb-0 text-white lh-100">私人健身教练预定管理系统</h6>
+	          <h6 class="mb-0 text-white lh-100">论文管理系统</h6>
 	        </div>
       	  </div>
 	      <div class="my-3 p-3 bg-white rounded box-shadow">
-	        <c:forEach items="${courseList }" var="course">
+	      
+	      
+	      <%--
+		      <div class="row">
+				  <div class="col-lg-6">
+				    <div class="input-group">
+				      <div class="input-group-btn">
+				      	<select name="tiaojian" class="btn btn-default dropdown-toggle " style="border:1px solid gray;color:gray">
+				      		<option value="1">论文题目</option>
+				      		<option value="1">关键词</option>
+				      		<option value="1">届次</option>
+				      		<option value="1">专业</option>
+				      	</select>
+				        <ul class="dropdown-menu">
+				          <li><a href="#">Action</a></li>
+				          <li><a href="#">Another action</a></li>
+				          <li><a href="#">Something else here</a></li>
+				          <li role="separator" class="divider"></li>
+				          <li><a href="#">Separated link</a></li>
+				        </ul>
+				      </div><!-- /btn-group -->
+				      <input type="text" class="form-control" aria-label="...">
+				    </div>
+				  </div>
+				</div>
+	       --%>
+	        <%-- <c:forEach items="${paperList }" var="paper">
 		       <div class="media text-muted pt-3">
 		          <img src="${pageContext.request.contextPath }/img/3.png" alt="" class="mr-2 rounded">
 		          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 		            <div class="d-flex justify-content-between align-items-center w-100">
-		            	<span class="d-block">课程时间：${course.time }</span>
-		              <c:if test="${!course.entered }">
-			          	<a href="${pageContext.request.contextPath }/user/UserServlet?method=takecourse&courseid=${course.courseid}">预订</a>
-		              </c:if>
-		              <c:if test="${course.entered }">
-		             	<a href="#">已预订</a>
-		              </c:if>
+		              <span class="d-block">论文编号：${paper.lwid}</span>
 		            </div>
-		            	<span class="d-block">课程地点：${course.place }</span>
-		            	<span class="d-block">课程简介：${course.content }</span>
-		            	<span class="d-block">课程教练：${course.coach.name }</span>
-	            		<span class="d-block">联系方式：${course.coach.phone }</span>
+	            	<span class="d-block">论文题目：<a target="_blank" href="${pageContext.request.contextPath }/teacher/TeacherServlet?method=viewpaper&lwid=${paper.lwid}">${paper.lwtm}</a></span>
 		          </div>
 		        </div>
-	        </c:forEach>
+	        </c:forEach> --%>
 	      </div>
       </div>
     </main>

@@ -54,14 +54,17 @@
 	        </div>
       	  </div>
 	      <div class="my-3 p-3 bg-white rounded box-shadow">
-	        <a class="btn btn-outline-success my-2 my-sm-0" href="${pageContext.request.contextPath }/jsp/teacher/addpaper.jsp" target="_blank">添加 <span class="sr-only">(current)</span></a>
+	        <a class="btn btn-outline-success my-2 my-sm-0" href="${pageContext.request.contextPath }/jsp/teacher/editpaper.jsp" target="_blank">添加 <span class="sr-only">(current)</span></a>
 	        <c:forEach items="${paperList }" var="paper">
 		       <div class="media text-muted pt-3">
 		          <img src="${pageContext.request.contextPath }/img/3.png" alt="" class="mr-2 rounded">
 		          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 		            <div class="d-flex justify-content-between align-items-center w-100">
 		              <span class="d-block">论文编号：${paper.lwid}</span>
-		              <a class="btn btn-outline-success my-2 my-sm-0"  onclick="return sure()" href="${pageContext.request.contextPath }/teacher/TeacherServlet?method=deletepaper&lwid=${paper.lwid}">删除</a>
+		              <div>
+			              <a class="btn btn-outline-success my-2 my-sm-0" href="${pageContext.request.contextPath }/jsp/teacher/editpaper.jsp?paperid=${paper.lwid}" target="_blank">编辑 <span class="sr-only">(current)</span></a>
+			              <a class="btn btn-outline-success my-2 my-sm-0"  onclick="return sure()" href="${pageContext.request.contextPath }/teacher/TeacherServlet?method=deletepaper&lwid=${paper.lwid}">删除</a>
+		              </div>
 		            </div>
 	            	<span class="d-block">论文题目：<a target="_blank" href="${pageContext.request.contextPath }/teacher/TeacherServlet?method=viewpaper&lwid=${paper.lwid}">${paper.lwtm}</a></span>
 		          </div>
