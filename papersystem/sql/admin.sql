@@ -6,4 +6,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`glyid`),
   UNIQUE KEY `xm` (`xm`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-INSERT INTO `admin` (`glyid`, `xm`, `mm`) VALUES(1, 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==');
+
+INSERT INTO `admin` (`glyid`, `xm`, `mm`) VALUES
+	(1, 'root', 'Y6nw6nu5gFB5a2SehUgYRQ==');

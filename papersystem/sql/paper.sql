@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS `paper` (
   PRIMARY KEY (`lwid`),
   KEY `FK_paper_teacher` (`jxmsid`),
   CONSTRAINT `FK_paper_teacher` FOREIGN KEY (`jxmsid`) REFERENCES `teacher` (`jxmsid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
