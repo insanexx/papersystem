@@ -302,6 +302,68 @@ public class PaperDaoImpl implements PaperDao {
 		}
 		return list;
 	}
+
+
+	@Override
+	public List<Paper> query(String lwtm, String gjc, String jc, String zy,int pageIndex, int pageSize) {
+		List<Paper> list = new ArrayList<Paper>();
+		String sql = "select * from paper where lwtm like ? and gjc like ? and jc like ? and zy like ? limit ?,?";
+		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		conn = DBConnectionManager.getJDBCConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%"+lwtm+"%");
+			pst.setString(2, "%"+gjc+"%");
+			pst.setString(3, "%"+jc+"%");
+			pst.setString(4, "%"+zy+"%");
+			pst.setInt(5, pageIndex);
+			pst.setInt(6, pageSize);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				Paper paper = new Paper();
+				paper.setGjc(rs.getString("gjc"));
+				paper.setJb(rs.getString("jb"));
+				paper.setJc(rs.getString("jc"));
+				paper.setLwid(rs.getInt("lwid"));
+				paper.setLwtm(rs.getString("lwtm"));
+//				paper.setNr(rs.getString("nr"));
+				paper.setXm(rs.getString("xm"));
+				paper.setXy(rs.getString("xy"));
+				paper.setZdls(rs.getString("zdls"));
+				paper.setZhy(rs.getString("zhy"));
+				paper.setZy(rs.getString("zy"));
+				paper.setJxmsid(rs.getInt("jxmsid"));
+				list.add(paper);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pst!=null) {
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
 	
 	
 }

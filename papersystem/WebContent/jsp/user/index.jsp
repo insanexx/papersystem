@@ -20,6 +20,62 @@
 	   		padding-bottom: 2px;
 	    }
     </style>
+   <script src="${pageContext.request.contextPath }/jquery-3.1.0/jquery-3.2.1.slim.min.js"></script>
+    <script src="${pageContext.request.contextPath }/jquery-3.1.0/jquery-3.1.0.min.js"></script>
+   <script src="${pageContext.request.contextPath }/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+   <script src="${pageContext.request.contextPath }/js/popper.min.js"></script>
+    <script>
+    	function mysubmit(){
+    		var params = {};
+    		params.lwtm=$("#lwtm").val();
+    		params.gjc=$("#gjc").val();
+    		params.jc=$("#jc").val();
+    		params.zy=$("#zy").val();
+    		params.method="query";
+    		$.ajax({
+	    		type:"POST",
+	    		async:true,
+	    		contentType:"application/x-www-form-urlencoded",
+				url:"${pageContext.request.contextPath }/user/UserServlet",
+				data:params,
+				datatype: "text",//"xml", "html", "script", "json", "jsonp", "text".
+				beforeSend:function(){
+				},
+				success:function(data){
+					data = jQuery.parseJSON(data);
+					console.log(data);
+					if(data.result=="yes"){
+						var listdiv = $("#paperlistdiv");
+						listdiv.empty();
+						for(var i=0;i<data.data.length;i++){
+							var lwtm = data.data[i].lwtm;
+							var lwid = data.data[i].lwid;
+							var div = "<div class='media text-muted pt-3'>"
+									+"<div class='media-body pb-3 mb-0 small lh-125 border-bottom border-gray'>"
+										+"<div class='d-flex justify-content-between align-items-center w-100'>"
+											+"<span class='d-block'>论文编号："+lwid+"</span>"
+										+"</div>"
+										+"<span class='d-block'>论文题目："
+											+"<a target='_blank' href='${pageContext.request.contextPath }/user/UserServlet?method=viewpaper&lwid="+lwid+"'>"+lwtm+"</a>"
+										+"</span>"
+									+"</div>"
+									+"</div>";
+							div = $(div);
+							listdiv.append(div);
+						}
+						
+					}else{
+						alert(data.data);
+					}
+				},
+	            complete: function(XMLHttpRequest, textStatus){
+	            },
+	            error: function(){
+	            	alert("出错了，请稍后再试");
+	            }
+	    	});
+    	}
+    </script>
   </head>
 
   <body class="bg-light">
@@ -49,49 +105,41 @@
 	        </div>
       	  </div>
 	      <div class="my-3 p-3 bg-white rounded box-shadow">
-	      
-	      
-	      <%--
-		      <div class="row">
-				  <div class="col-lg-6">
-				    <div class="input-group">
-				      <div class="input-group-btn">
-				      	<select name="tiaojian" class="btn btn-default dropdown-toggle " style="border:1px solid gray;color:gray">
-				      		<option value="1">论文题目</option>
-				      		<option value="1">关键词</option>
-				      		<option value="1">届次</option>
-				      		<option value="1">专业</option>
-				      	</select>
-				        <ul class="dropdown-menu">
-				          <li><a href="#">Action</a></li>
-				          <li><a href="#">Another action</a></li>
-				          <li><a href="#">Something else here</a></li>
-				          <li role="separator" class="divider"></li>
-				          <li><a href="#">Separated link</a></li>
-				        </ul>
-				      </div><!-- /btn-group -->
-				      <input type="text" class="form-control" aria-label="...">
+	      	<div class="container">
+	      		<form class="navbar-form navbar-left" action="javascript:void(0)">
+				  <div class="row">
+				    <div class="col">
+				      <input id="lwtm" name="lwtm" type="text" class="form-control" placeholder="论文题目">
+				    </div>
+				    <div class="col">
+				      <input id="gjc" name="gjc" type="text" class="form-control" placeholder="关键词">
+				    </div>
+				    <div class="col">
+				      <input id="jc" name="jc" type="text" class="form-control" placeholder="届次">
+				    </div>
+				    <div class="col">
+				      <input id="zy" name="zy" type="text" class="form-control" placeholder="专业">
+				    </div>
+				    <div class="col">
+				      <button class="btn btn-default" onclick="mysubmit()">查询</button>
 				    </div>
 				  </div>
-				</div>
-	       --%>
-	        <%-- <c:forEach items="${paperList }" var="paper">
-		       <div class="media text-muted pt-3">
-		          <img src="${pageContext.request.contextPath }/img/3.png" alt="" class="mr-2 rounded">
+				  <hr>
+			  </form>
+			</div>
+			<div id="paperlistdiv">
+		      	<%-- <div class="media text-muted pt-3">
 		          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 		            <div class="d-flex justify-content-between align-items-center w-100">
-		              <span class="d-block">论文编号：${paper.lwid}</span>
+		              <span class="d-block">论文编号：***</span>
 		            </div>
-	            	<span class="d-block">论文题目：<a target="_blank" href="${pageContext.request.contextPath }/teacher/TeacherServlet?method=viewpaper&lwid=${paper.lwid}">${paper.lwtm}</a></span>
+	            	<span class="d-block">论文题目：<a target="_blank" href="${pageContext.request.contextPath }/user/UserServlet?method=viewpaper&lwid=${paper.lwid}">aaa</a></span>
 		          </div>
-		        </div>
-	        </c:forEach> --%>
+		        </div> --%>
+	        </div>
 	      </div>
       </div>
     </main>
-
-   <script src="${pageContext.request.contextPath }/jquery-3.1.0/jquery-3.2.1.slim.min.js"></script>
-   <script src="${pageContext.request.contextPath }/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
-   <script src="${pageContext.request.contextPath }/js/popper.min.js"></script>
+   
   </body>
 </html>

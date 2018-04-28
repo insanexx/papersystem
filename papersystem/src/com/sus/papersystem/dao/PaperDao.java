@@ -11,5 +11,6 @@ public interface PaperDao {
 	public Paper getById(int id);
 	public List<Paper> getList(int pageIndex, int pageSize);
 	public List<Paper> getListByTeacher(int pageIndex, int pageSize,int jxmsid);
+	public List<Paper> query(String lwtm, String gjc, String jc, String zy,int pageIndex, int pageSize);
 	
 }

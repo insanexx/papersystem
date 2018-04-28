@@ -1,7 +1,9 @@
 package com.sus.papersystem.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.sus.papersystem.beans.Paper;
 import com.sus.papersystem.beans.User;
 import com.sus.papersystem.dao.PaperDao;
@@ -51,9 +54,49 @@ public class UserServlet extends HttpServlet {
 		case "index":
 			index(request,response);
 			break;
+		case "query":
+			query(request,response);
+			break;
+		case "viewpaper":
+			viewpaper(request,response);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void query(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(user==null) {
+			map.put("result", "no");
+			map.put("data", "您还没有登录");
+			return;
+		}
+		String lwtm = request.getParameter("lwtm");
+		String gjc = request.getParameter("gjc");
+		String jc = request.getParameter("jc");
+		String zy = request.getParameter("zy");
+		List<Paper> list= paperDao.query(lwtm,gjc,jc,zy,0,9999);
+		map.put("result", "yes");
+		map.put("data", list);
+		Gson gson = new Gson();
+		response.getOutputStream().write(gson.toJson(map).getBytes("UTF-8"));
+		return;
+	}
+	
+	private void viewpaper(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = (User) request.getSession().getAttribute("user");
+		if(user==null) {
+			request.setAttribute("message", "你还没有登录");
+			request.getRequestDispatcher("/jsp/message.jsp").forward(request, response);
+			return;
+		}
+		int lwid = Integer.parseInt(request.getParameter("lwid"));
+		Paper paper = paperDao.getById(lwid);
+		request.setAttribute("paper", paper);
+		request.getRequestDispatcher("/jsp/user/viewpaper.jsp").forward(request, response);
+		return;
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

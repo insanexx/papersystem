@@ -94,7 +94,7 @@
 	        	<div class="media text-muted pt-3">
 		          <img src="${pageContext.request.contextPath }/img/4.jpg" width="32" height="32" alt="" class="mr-2 rounded">
 		          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-	            	<span class="d-block"><a href="#" onclick="showuser('${u.yhid}','${u.xm }','${u.xy}','${u.zy}','${u.jc}')" data-toggle="modal" data-target="#myModal">用户名：${u.name}</a></span>
+	            	<span class="d-block"><a href="#" onclick="showuser('${u.yhid}','${u.xm }','${u.xy}','${u.zy}','${u.jc}')" data-toggle="modal" data-target="#myModal">用户名：${u.xm}</a></span>
 		          </div>
 	        	</div>
 	        </c:forEach>

@@ -182,7 +182,6 @@ if(paperid_str!=null){
 				data:params,
 				datatype: "text",//"xml", "html", "script", "json", "jsonp", "text".
 				beforeSend:function(){
-					console.log("before 00000");
 				},
 				success:function(data){
 					data = jQuery.parseJSON(data);
